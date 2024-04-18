@@ -45,3 +45,23 @@ jobs:
           export VERSION=$(cat version.txt)
           docker build -t $ECR_REGISTRY/$IMAGE_NAME:$VERSION ./src
           docker push $ECR_REGISTRY/$IMAGE_NAME:$VERSION
+
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:    
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+        
+    - name: Update ECS Service with new image
+      run: |
+        export VERSION=$(cat version.txt)
+        export IMAGE=$ECR_REGISTRY/$IMAGE_NAME:$VERSION
+        aws ecs update-service --cluster dev-cluster --service nodejs-web --task-definition '{"containerDefinitions":[{"name":"ecr-td-nodejs-app","image":"'"$IMAGE"'","cpu":256,"memory":512,"portMappings":[{"containerPort":3000,"hostPort":80,"protocol":"tcp"}]}]}'
