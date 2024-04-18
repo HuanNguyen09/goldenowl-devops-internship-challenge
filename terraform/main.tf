@@ -22,6 +22,21 @@ module "networking" {
 }
 
 module "security" {
-  source             = "./modules/security"
-  vpc_id =  module.networking.vpc_id
+  source = "./modules/security"
+  vpc_id = module.networking.vpc_id
+}
+
+module "alb" {
+  source = "./modules/alb"
+  public_subnet_ips = module.networking.private_subnet_ids
+  public_sg_id = module.security.public_sg_id
+  vpc_id = module.networking.vpc_id
+}
+
+
+module "ecs" {
+  source = "./modules/ecs"
+  vpc_id = module.networking.vpc_id
+  ecr_name = var.ecr_name
+  
 }

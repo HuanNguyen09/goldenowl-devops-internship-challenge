@@ -18,3 +18,6 @@
    type = list(string)
  }
  
+variable "ecr_name" {
+  type = string
+}
