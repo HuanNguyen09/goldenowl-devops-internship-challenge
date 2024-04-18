@@ -6,7 +6,15 @@ router.get('/', (req, res) => {
     const responseJson = {
         message: 'Welcome warriors to Golden Owl!',
     }
-    res.json(responseJson)
+    const clientIP =req.headers('x-forwarded-for');
+    const elbIP = req.socket.remoteAddress;
+    const containerIP = req.socket.localAddress;
+    res.json({
+        responseJson,
+        clientIP: clientIP,
+        elbIP: elbIP,
+        containerIP: containerIP,
+    });
 })
 
 module.exports = router

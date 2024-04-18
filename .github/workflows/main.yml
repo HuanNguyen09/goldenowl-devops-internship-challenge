@@ -63,34 +63,3 @@ jobs:
           cluster: dev-cluster
           wait-for-service-stability: true    
          
-    
-  # deploy:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:    
-  #   - name: Checkout repository
-  #     uses: actions/checkout@v2
-
-  #   - name: Configure AWS Credentials
-  #     uses: aws-actions/configure-aws-credentials@v4
-  #     with:
-  #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  #       aws-region: ${{ secrets.AWS_REGION }}
-  #   - name: Create version.txt
-  #     run: |
-  #       export PACKAGE_JSON_VERSION=$(cat src/package.json | jq -r .version)
-  #       export VERSION=$PACKAGE_JSON_VERSION.${GITHUB_RUN_ID}
-  #       echo $VERSION > version.txt
-  #       echo $VERSION
-      
-  #   - name: Upload version.txt as artifact
-  #     uses: actions/upload-artifact@v2
-  #     with:
-  #       name: version
-  #       path: version.txt
-  #   - name: Update ECS Service with new image
-  #     run: |
-  #       export VERSION=$(cat version.txt)
-  #       export IMAGE=$ECR_REGISTRY/$IMAGE_NAME:$VERSION
-  #       aws ecs update-service --cluster dev-cluster --service nodejs-web --task-definition '{"containerDefinitions":[{"name":"ecr-td-nodejs-app","image":"'"$IMAGE"'","cpu":256,"memory":512,"portMappings":[{"containerPort":3000,"hostPort":80,"protocol":"tcp"}]}]}'
