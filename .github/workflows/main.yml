@@ -51,7 +51,7 @@ jobs:
           aws ecs update-service \
             --cluster dev-cluster \
             --service nodejs-web \
-            --task-definition ecr-td-nodejs-app \
+            --task-definition ecr-td-nodejs-app:2 \
             --force-new-deployment
 
   # deploy:
