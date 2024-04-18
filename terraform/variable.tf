@@ -18,6 +18,14 @@
    type = list(string)
  }
  
-variable "ecr_name" {
-  type = string
-}
+# variable "ecr_name" {
+#   type = string
+# }
+
+# variable "image_defaut" {
+#   type = string
+# }
+
+# variable "ecs_name" {
+#   type = string
+# }
