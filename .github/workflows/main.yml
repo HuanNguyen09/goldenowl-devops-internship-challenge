@@ -6,6 +6,17 @@ on:
       - master
 
 jobs:
+
+  test:     
+    runs-on: ubuntu-latest      
+    steps:       
+      - name: Checkout repository         
+        uses: actions/checkout@v2  
+
+      - name: test case         
+        run:            
+          echo "Run the test here....."
+          
   build:
     runs-on: ubuntu-latest
 
