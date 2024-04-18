@@ -42,6 +42,6 @@ jobs:
           ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
           IMAGE_NAME: nodejs-app
         run: |
-          export VERSION=$cat version.txt)
+          export VERSION=$(cat version.txt)
           docker build -t $ECR_REGISTRY/$IMAGE_NAME:$VERSION ./src
           docker push $ECR_REGISTRY/$IMAGE_NAME:$VERSION
