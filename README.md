@@ -11,37 +11,32 @@ Your mission, should you choose to accept it, is to craft a CI job that:
 4. Initiates CI tests automatically when changes are pushed to the feature branch on GitHub.
 5. Utilizes GitHub Actions for Continuous Deployment (CD) to deploy the application to major cloud providers like AWS EC2, AWS ECS or Google Cloud (please submit the deployment link).
 ## Implementation steps
-1. visual workflow diagram ![workflows-image](./image/workflows.png)
-
-    We would be genuinely delighted if you could complement your submission with a `visual flow diagram`, illustrating the sequence of tasks you performed, including the implementation of a `load balancer` and `auto scaling` for the deployed application. This additional touch would greatly enhance our understanding and appreciation of your work.
-
-Reference tools for creating visual flow diagrams:
-- https://www.drawio.com/
-- https://excalidraw.com/
-- https://www.eraser.io/
-  
-Including a visual representation of your workflow will provide valuable insights into your approach and make your submission stand out. Thank you for considering this enhancement! 
-## The Bigger Picture 🌏
-This test is designed to evaluate your ability to implement modern automated infrastructure practices while demonstrating a basic understanding of Docker containers. In your solution, we encourage you to prioritize readability, maintainability, and the principles of DevOps.
-
- ## Submission Guidelines 📬
-Your solution should be showcased in a public GitHub repository. We encourage you to commit early and often. We prefer to see a history of iterative progress rather than a single massive push. When you've completed the assignment, kindly share the URL of your repository with us.
-
- ## Running the Node.js Application Locally  🏃‍♂️
- This is a Node.js application, and running it locally is straightforward:
-- Navigate to the `src` directory by executing `cd src`.
-- Install the project's dependencies listed in the package.json file by running `npm i`.
-- Execute `npm test` to run the application's tests.
-- Start the HTTP server with `npm start`.
-
-You can test it using the following command:
-  
+1. Visual workflow diagram:
+   Deploy to ECS with launch type(FARGATE) combined with `load balancing` and `autoscaling`
+   ![workflows-image](./image/workflows.png)
+2. Terraform: Infrastructure as Code
+   
+   You can  using the following command:
+>>>>>>> b68f9f625d2e1cf693e79027382ef202196fbfce
 ```shell
-curl localhost:3000
-```
-You should receive the following response:
-```json
-{"message":"Welcome warriors to Golden Owl!"}
+# Navigate to the terraform directory
+cd terraform
+
+# Initialize Terraform in the current directory
+terraform init
+
+# Generate and show an execution plan
+terraform plan --var-file "terraform.tfvars"
+
+# Apply the changes required to reach the desired state
+terraform apply --var-file "terraform.tfvars"
+
+# Destroy the Terraform-managed infrastructure
+terraform destroy --var-file "terraform.tfvars"        
 ```
 
-Are you ready to embark on this DevOps journey with us? 🚀 Best of luck with your assignment! 🌟
+3. Build CI/CD Pipeline
+   - CI: Buil image and push to ECR
+   - CD: Deploy to ECS with launch type(FARGATE)
+4. Link DNS ALB: http://my-alb-2037840824.ap-southeast-1.elb.amazonaws.com
+   
