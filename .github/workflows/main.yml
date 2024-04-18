@@ -24,7 +24,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Create version.txt
-        run:
+        run: |
           PACKAGE_JSON_VERSION=$(cat src/package.json | jq -r .version)
           VERSION=$PACKAGE_JSON_VERSION.${GITHUB_RUN_ID}
           echo $VERSION > version.txt
