@@ -40,7 +40,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
           IMAGE_NAME: nodejs-app
-          TAG: latest
+          TAG: $VERSION
         run: |
           docker build -t $ECR_REGISTRY/$IMAGE_NAME:$TAG ./src
           docker push $ECR_REGISTRY/$IMAGE_NAME:$TAG
