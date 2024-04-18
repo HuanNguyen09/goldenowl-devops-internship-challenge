@@ -48,12 +48,11 @@ jobs:
       
       - name: Update ECS Service
         run: |
-          aws ecs update-service \
-            --cluster dev-cluster \
-            --service nodejs-web \
-            --task-definition ecr-td-nodejs-app:2 \
-            --force-new-deployment
-
+          aws ecs describe-task-definition \
+          --task-definition ecr-td-nodejs-app \
+          --query 'taskDefinition' \
+          > task-definition.json
+    
   # deploy:
   #   needs: build
   #   runs-on: ubuntu-latest
