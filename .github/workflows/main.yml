@@ -38,6 +38,7 @@ jobs:
       
 
       - name: Build, tag, and push image to Amazon ECR
+        id: build-image
         env:
           ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
           IMAGE_NAME: nodejs-app
@@ -45,13 +46,15 @@ jobs:
           export VERSION=$(cat version.txt)
           docker build -t $ECR_REGISTRY/$IMAGE_NAME:$VERSION ./src
           docker push $ECR_REGISTRY/$IMAGE_NAME:$VERSION
+          echo "image=$ECR_REGISTRY/$IMAGE_NAME:$VERSION" >>$GITHUB_OUTPUT
       
-      - name: Update ECS Service
-        run: |
-          aws ecs describe-task-definition \
-          --task-definition ecr-td-nodejs-app \
-          --query 'taskDefinition' \
-          > task-definition.json
+      - name: Deploy to Amazon ECS
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          container-name: nodejs-app
+          image: ${{steps.build-image.outputs.image}}
+         
     
   # deploy:
   #   needs: build
