@@ -17,7 +17,7 @@ Your mission, should you choose to accept it, is to craft a CI job that:
 2. Terraform: Infrastructure as Code
    
    You can  using the following command:
->>>>>>> b68f9f625d2e1cf693e79027382ef202196fbfce
+
 ```shell
 # Navigate to the terraform directory
 cd terraform
@@ -40,3 +40,15 @@ terraform destroy --var-file "terraform.tfvars"
    - CD: Deploy to ECS with launch type(FARGATE)
 4. Link DNS ALB: http://my-alb-2037840824.ap-southeast-1.elb.amazonaws.com
    
+5. Auto Scaling
+
+   ![1-image](./image/1.png)
+
+    Not yet scaled up
+   ![2-image](./image/2.png)
+
+    Use the ` ab ` tool to send the request
+   ![3-image](./image/3.png)
+
+    Scale up to 5 task running
+   ![4-image](./image/4.png)
